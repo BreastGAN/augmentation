@@ -1,0 +1,150 @@
+= Adversarial Augmentation for Enhancing Classification of Mammography Images
+
+=== https://arxiv.org/abs/1902.07762[Paper]
+
+https://github.com/BreastGAN/augmentation[Adversarial Augmentation for Enhancing Classification of Mammography Images]
+
+https://www.researchgate.net/profile/Lukas_Jendele[Lukas Jendele]* 1), https://oskopek.com/[Ondrej Skopek]* 1), https://www.researchgate.net/profile/Anton_Becker2[Anton S. Becker] 2,3), http://www.vision.ee.ethz.ch/~kender/[Ender Konukoglu] 4)
+
+1. Department of Computer Science, ETH Zurich
+2. Institute of Diagnostic and Interventional Radiology, University Hospital of Zurich; Zurich, Switzerland
+3. Department of Health Sciences and Technology, ETH Zurich; Zurich, Switzerland
+4. Computer Vision Laboratory, Department of Information Technology and Electrical Engineering, ETH Zurich
+
+In arXiv, 2019. (* joint contribution)
+
+Correspondence to: mailto:jendelel+breastgan@ethz.ch[Lukas Jendele] and mailto:oskopek+breastgan@oskopek.com[Ondrej Skopek]
+
+== Citation
+If you use this code for your research, please cite our https://arxiv.org/abs/1902.07762[paper]:
+
+```
+@article{AdvAugmentation2019,
+  title={{Adversarial Augmentation for Enhancing Classification of Mammography Images}},
+  author={Jendele, Lukas and Skopek, Ondrej and Becker, Anton S and Konukoglu, Ender},
+  journal={arXiv preprint arXiv:1902.07762},
+  year={2019}
+}
+```
+
+== Related Projects
+
+https://github.com/junyanz/CycleGAN[CycleGAN]: Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks. Software that can generate photos from paintings, turn horses into zebras, perform style transfer, and more.
+
+https://github.com/BreastGAN[BreastGAN]: Injecting and removing malignant features in mammography with CycleGAN: Investigation of an automated adversarial attack using neural networks
+
+== Requirements and versions:
+
+* Python 3.5
+* Git
+* Tensorflow 1.12.0
+
+*Important:* When committing, remember to be *in* the virtual environment,
+for hooks to work.
+
+*NOTE:* All code in Jupyter Notebooks is purely experimental. Use at your own risk.
+
+== Setup
+
+Make sure there is no `venv/` directory in your repository. If there is, remove it.
+Run the following commands:
+```
+./setup/create_venv.sh
+source venv/bin/activate
+```
+
+*Important:* For all commands here, we assume you are sourced into
+the virtual environment: `source venv/bin/activate`
+
+== Running the experiments
+
+=== Image conversion
+
+Put all data into the directories in `data_in/`. Supported are: `1_BCDR/`, `2_INbreast/`, `3_zrh/`, `cbis`.
+
+1. `./local/convert_images_all.sh`
+2. `./local/merge_images_all.sh`
+3. `./local/split_images_all.sh`
+4. `./local/treval_split.sh`
+
+=== GAN training
+
+1. `./local/run.sh`. Wait 24 hours.
+2. `./local/infer.sh`. Make sure to enter the correct checkpoint number here and below.
+3. `./local/to_png.sh`. Make sure to change the paths in `notebooks/inference_tfrecord_to_png.py`.
+
+
+== Jupyter notebooks
+
+*NOTE:* All code in Jupyter Notebooks is purely experimental. Use at your own risk.
+
+Save notebooks in the `notebooks/` directory.
+These can also be worked on locally using Jupyter.
+In the project root directory, you can run either:
+
+* `jupyter notebook`,
+* or `jupyter lab`.
+
+Add the following cell to your notebook, ideally in a "section":
+
+```
+# noqa
+import os
+wd = %pwd
+print('Current directory:', wd)
+if wd.endswith('notebooks'):
+    %cd ..
+```
+
+== Directory structure
+
+* `cluster/` -- scripts for running the training/evaluation on the cluster
+* `data_in/` -- input data and associated scripts/configs
+* `data_out/` -- output data and logs + associated scripts/configs
+* `local/` -- scripts for running the training/evaluation locally
+* `models/` -- scripts defining the models + hyperparameters
+* `notebooks/` -- data exploration and other rapid development notebooks
+** Models from here should eventually be promoted into `models/`
+* `resources/` -- Python utilities
+* `setup/` -- environment setup and verification scripts in Python/Bash
+* `venv/` -- the (local) Python virtual environment
+
+== Formatting
+
+Run: `./setup/clean.sh`.
+A Git hook will tell you if any files are misformatted before committing.
+
+== Third Party code used in this project
+
+=== ICNR
+
+https://github.com/kostyaev/ICNR by Dmitry Kostyaev
+
+Licensed under the MIT Licence.
+
+In: `models/utils/icnr.py`
+
+=== Tensor2Tensor
+
+https://github.com/tensorflow/tensor2tensor by The Tensor2Tensor Authors.
+
+Licensed under the Apache License Version 2.0.
+
+In: `models/breast_cycle_gan`
+
+=== TensorFlow, TensorFlow Models
+
+https://github.com/tensorflow/tensorflow, https://github.com/tensorflow/models by The TensorFlow Authors.
+
+Licensed under the Apache License Version 2.0.
+
+In: `models/breast_cycle_gan`
+
+=== TensorPack
+
+https://github.com/tensorpack/tensorpack by Yuxin Wu.
+
+Licensed under the Apache License Version 2.0.
+
+In: `models/rcnn`
+

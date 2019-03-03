@@ -1,0 +1,7 @@
+[style]
+based_on_style = google
+coalesce_brackets = True
+column_limit = 120
+continuation_indent_width = 8
+indent_width = 4
+split_before_first_argument = False

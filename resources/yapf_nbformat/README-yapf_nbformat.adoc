@@ -1,0 +1,10 @@
+= yapf_nbformat
+Ondrej Skopek <oskopek@oskopek.com>
+
+Runs YAPF on individual notebook cells using yapf_api.
+
+* To skip a cell formatting (for example with jupyter-custom syntax, add `# noqa` to the first line of the cell.
+* Remove newlines at end of cells.
+* Uses the style_format file `.style.yapf`.
+* Has a dry run option for checking proper formatting (f.e. in a Git hook).
+
